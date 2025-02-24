@@ -11,6 +11,7 @@ docker run \
     --gpus all \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /home/giorgos_katranis/Projects/ros_packages:/home/docker/ros_packages \
     --privileged \
     -it \
     --ipc host \

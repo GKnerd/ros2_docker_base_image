@@ -7,7 +7,7 @@ FROM osrf/ros:jazzy-desktop-full-noble
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Delete initial user fropm Ubuntu 24.04, if not deleted the existing non-root user
+# Delete initial user from Ubuntu 24.04, if not deleted the existing non-root user
 # breaks the uid and gid assignment taking place in "build_image.sh"
 RUN deluser ubuntu
 
@@ -15,8 +15,8 @@ RUN deluser ubuntu
 ##                                 Global Dependecies                       ##
 ##############################################################################
 # UTF-8 Support
-ENV LANG C.UTF-8 
-ENV LC_ALL C.UTF-8
+ENV LANG=C.UTF-8 
+ENV LC_ALL=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
 RUN apt-get update && \
@@ -25,7 +25,7 @@ RUN apt-get update && \
     dirmngr gnupg2 lsb-release can-utils iproute2\
     apt-utils bash nano aptitude util-linux \
     htop git tmux sudo wget gedit bsdmainutils \
-    mesa-utils x11-utils pip && \
+    mesa-utils x11-utils pip python3.12-venv && \
     # Mesa Graphics Workaround 
     add-apt-repository ppa:kisak/kisak-mesa -y &&  \
     apt update && \
@@ -64,6 +64,15 @@ USER $USER
 ##############################################################################
 ##                                 User Dependencies                        ##
 ##############################################################################
+
 WORKDIR /home/$USER/
+
+# RUN sudo python3 -m venv /opt/venv 
+# # Enable ENV
+# ENV PATH="/opt/venv/bin:$PATH"
+
+# RUN sudo pip install numpy matplotlib pandas scipy
+
+
 CMD /bin/bash
 
